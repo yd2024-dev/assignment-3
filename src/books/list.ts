@@ -1,14 +1,14 @@
-import { z } from "zod";
-import { book_collection } from "../database_access";
-import { type Book } from "../../adapter/assignment-2";
-import { ZodRouter } from "koa-zod-router";
+import { z } from 'zod';
+import { book_collection } from '../database_access';
+import { type Book } from '../../adapter/assignment-2';
+import { ZodRouter } from 'koa-zod-router';
 
 export default function books_list(router: ZodRouter) {
 
     router.register({
-        name: "list books",
-        method: "get",
-        path: "/books",
+        name: 'list books',
+        method: 'get',
+        path: '/books',
         validate: {
             query: z.object({
                 filters: z.object({
@@ -34,7 +34,7 @@ export default function books_list(router: ZodRouter) {
                     }
                     return valid ? filter : false;
                 }).filter(value => value !== false).map((filter) => {
-                    return { price: filter as { $gtr?: number, $lte?: number } }
+                    return { price: filter as { $gtr?: number, $lte?: number } };
                 })
             } : {};
 

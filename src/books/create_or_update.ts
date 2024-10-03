@@ -1,13 +1,13 @@
-import { z } from "zod";
+import { z } from 'zod';
 import zodRouter, { ZodRouter } from 'koa-zod-router';
-import { book_collection } from "../database_access";
-import { ObjectId } from "mongodb";
+import { book_collection } from '../database_access';
+import { ObjectId } from 'mongodb';
 
 export default function create_or_update_book(router: ZodRouter) {
     router.register({
-        name: "create or update a book",
-        method: "post",
-        path: "/books",
+        name: 'create or update a book',
+        method: 'post',
+        path: '/books',
         validate: {
             body: z.object({
                 id: z.string().optional(),
@@ -21,7 +21,7 @@ export default function create_or_update_book(router: ZodRouter) {
         handler: async (ctx, next) => {
             let body = ctx.request.body;
 
-            if (typeof body.id === "string") {
+            if (typeof body.id === 'string') {
                 let id = body.id;
                 try {
                     const result = await book_collection.replaceOne({ _id: { $eq: ObjectId.createFromHexString(id) } }, {
